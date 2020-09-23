@@ -6,6 +6,12 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "10mb", extended: false }));
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
+var testApi = require("./TestCenter/TestingApi");
+var courseDets = require("./Courses/AddCourseApi");
+
+app.use("/testingApi", testApi);
+app.use("/courses", courseDets);
+
 var port = process.env.Port || 8081;
 
 var server = http.createServer(app);
