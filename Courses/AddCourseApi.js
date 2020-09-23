@@ -18,7 +18,7 @@ var pushCourseToDB = async (userId, myCourse, res) => {
           .findOneAndUpdate(
             { userId: userIdNew },
             { $push: { Courses: myCourse } },
-            { upsert: true, returnNewDocument: true }
+            { upsert: true, returnOriginal: false }
           )
           .then((result, err) => {
             if (err) {
@@ -55,7 +55,7 @@ route1.post(async (req, res) => {
 
   try {
     //using temporary ID just until we created the login system
-    var userId = "5f62519eb8f27a2d8c2f1642";
+    var userId = "5f62519eb8f27a2d8c2f1641";
     var updatedDoc = await pushCourseToDB(userId, myCourse, res);
   } catch (e) {
     res
@@ -66,7 +66,7 @@ route1.post(async (req, res) => {
       .status(401);
   }
 
-  res.json({ status: "Success", result: updatedDoc.value }).status(200);
+  res.json({ status: "Success", result: updatedDocv.value }).status(200);
 });
 
 module.exports = router;

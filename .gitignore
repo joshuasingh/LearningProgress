@@ -47,6 +47,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+#remove db related stuff
+SecurityFiles/
+
 # TypeScript v1 declaration files
 typings/
 

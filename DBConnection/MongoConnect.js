@@ -1,12 +1,13 @@
 var mongo = require("mongodb").MongoClient;
+var DBUrl = require("../SecurityFiles/MongoKeys");
 
 //mongo connection
 const withDB = async (operations, res, collectionName) => {
   try {
-    const client = await mongo.connect(
-      "mongodb+srv://joy:Joy@1995@cluster0-szqhn.mongodb.net/test?retryWrites=true&w=majority",
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    );
+    const client = await mongo.connect(DBUrl.DBUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
     const db = client.db("LearningProgress");
     const collection = db.collection(collectionName);
