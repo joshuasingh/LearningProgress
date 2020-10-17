@@ -2,8 +2,26 @@ var express = require("express");
 var router = express.Router();
 var mongoConnect = require("../DBConnection/MongoConnect");
 
+const jwt = require("njwt");
+const jwtKey = require("../SecurityFiles/JWTKey");
+
+var tokenCheck = function (req, res, next) {
+  var { token } = req.body;
+
+  jwt.verify(token, jwtKey, (err, verifiedJwt) => {
+    if (err) {
+      res.send(err.message);
+    } else {
+      console.log(verifiedJwt.body.id);
+      req.userId = verifiedJwt.body.id;
+      next();
+    }
+  });
+};
+router.use(tokenCheck);
 var route1 = router.route("/");
 var route2 = router.route("/getData");
+var route3 = router.route("/verifyToken");
 
 //check if able to input data into database
 route1.get((req, res) => {
@@ -37,7 +55,6 @@ route2.get((req, res) => {
         .find({})
         .toArray()
         .then((result, err) => {
-          throw "i made this";
           if (err) {
             console.log("unable to retrieve data", err);
             res.json({ status: "error Occured", error: err }).status(401);
@@ -53,6 +70,12 @@ route2.get((req, res) => {
     res,
     collectionName
   );
+});
+
+route3.post((req, res) => {
+  console.log("in api");
+
+  res.send("passed" + req.userId);
 });
 
 module.exports = router;

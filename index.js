@@ -7,10 +7,14 @@ app.use(bodyParser.json({ limit: "10mb", extended: false }));
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
 var testApi = require("./TestCenter/TestingApi");
-var courseDets = require("./Courses/AddCourseApi");
+var courseDets = require("./Courses/CourseApi");
+var userSignUp = require("./UserInfo/SignUp");
+var userSignIn = require("./UserInfo/SignIn");
 
 app.use("/testingApi", testApi);
 app.use("/courses", courseDets);
+app.use("/createUser", userSignUp);
+app.use("/signInUser", userSignIn);
 
 var port = process.env.Port || 8081;
 

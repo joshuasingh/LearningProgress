@@ -3,15 +3,13 @@ function CourseObj(
   courseName,
   Description,
   TotalTime = null,
-  PerWeek_effort = null,
-  PerDay_Effort = null
+  EffortUnit = null
 ) {
   this.coursesId = coursesId;
   this.courseName = courseName;
   this.Description = Description;
   this.TotalTime = TotalTime;
-  this.PerDay_Effort = PerDay_Effort;
-  this.PerWeek_effort = PerWeek_effort;
+  this.EffortUnit = EffortUnit;
 }
 
 module.exports = CourseObj;
